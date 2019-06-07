@@ -5,3 +5,4 @@
       "postinstall": "npm run build && echo 'Client built!'"
     }
   }
+
