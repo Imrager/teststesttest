@@ -10,7 +10,7 @@ class App extends Component {
             <Router>
                 <div className="App">
 
-                    <div>
+                    {/* <div>
                         <h1>Tunr</h1>
                         <div>
                             <div><Link to="/">All Artists</Link></div>
@@ -20,7 +20,7 @@ class App extends Component {
                     <Switch>
                       <Route exact path="/" component={ArtistList}/>
                       <Route path="/artist/:id" component={Artist}/>
-                    </Switch>
+                    </Switch> */}
                 </div>
             </Router>
         );
