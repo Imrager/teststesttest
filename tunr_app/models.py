@@ -26,7 +26,7 @@ class Season(models.Model):
 class Episode(models.Model):
     title = models.CharField(max_length=255)
     season = models.ForeignKey(Season, on_delete=models.CASCADE, related_name='episodes')
-    episode_number = models.IntegerField(max_length=4)
+    episode_number = models.IntegerField()
     image = models.CharField(max_length=500)
 
     def __str__(self):
