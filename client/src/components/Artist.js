@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 class Artist extends Component {
 
@@ -29,16 +30,23 @@ class Artist extends Component {
 
     render() {
         return (
-            <div>
-                <img src={this.state.artist.photo_url} alt=""/>
-                <h1>{this.state.artist.name}</h1>
-                {this.state.songs.map(song => (
-                    <div key={song.id}>
-                        <h4>{song.title}</h4>
-                        <audio controls src={song.preview_url}></audio>
+            <body>
+
+                    <aside>
+                        <h1>Family Guy Episode Finder</h1>
+                        <div>
+                            <div><Link to="/">Home</Link></div>
+                        </div>
+                    </aside>
+                    <div id='content'>
+                        <article>
+                            
+                        </article>
+                        <footer>
+
+                        </footer>
                     </div>
-                ))}
-            </div>
+                </body>
         );
     }
 }

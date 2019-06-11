@@ -1,24 +1,4 @@
-body {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-}
-#content{
-  width: 80%;
-  height:100%;
-  background-color: solid rgb(138, 58, 58);
-}
-article{
-  height: 90%;
-}
-footer{
-  height:10%;
-}
 
-aside{
-  width: 20%;
-  height: 100;
-}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
