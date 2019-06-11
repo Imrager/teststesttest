@@ -4,8 +4,10 @@ from rest_framework import routers
 from . import views
 
 router = routers.DefaultRouter()
-# router.register('artists', views.ArtistView)
-# router.register('songs', views.SongView)
+router.register('users', views.UserView)
+router.register('reviews', views.ReviewView)
+router.register('comments', views.CommentView)
+router.register('episodes', views.ShowView, base_name='episodes')
 
 
 urlpatterns = [

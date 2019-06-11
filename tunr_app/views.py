@@ -1,11 +1,11 @@
-# import requests
+import requests
+from rest_framework.response import Response
 from rest_framework import viewsets
-# from django.shortcuts import render
 from .serializers import UserSerializer, ReviewSerializer, CommentSerializer
 from .models import User, Review, Comment
 
-# url = 'http://api.tvmaze.com/shows/84/episodes'
-# r = requests.get(url).json()
+url = 'http://api.tvmaze.com/shows/84/episodes'
+r = requests.get(url).json()
 # for x in r:
 #     show = x['name'], x['season'], x['airdate'], x['airtime'], x['image']['medium'], x['summary']
 #     print(show)
@@ -23,13 +23,22 @@ from .models import User, Review, Comment
 class ReviewView(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+
 class CommentView(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
 class UserView(viewsets.ModelViewSet):
     queryset =User.objects.all()
     serializer_class = UserSerializer
 
+class ShowView(viewsets.ViewSet):
+    def list(self, request):
+        url = 'http://api.tvmaze.com/shows/84/episodes'
+        r = requests.get(url).json()
+        for x in r:
+            episode = x['name'], x['season'], x['airdate'], x['airtime'], x['image']['medium'], x['summary']
+            Response(episode)
 # class ArtistView(viewsets.ModelViewSet):
 #     queryset = Artist.objects.all()
 #     serializer_class = ArtistSerializer

@@ -37,6 +37,8 @@ class Review(models.Model):
 class Comment(models.Model):
     reply = models.CharField(max_length=250)
     review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='comments')
+    
+
 
     def __str__(self):
         return self.reply
