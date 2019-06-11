@@ -17,24 +17,26 @@ from django.db import models
 #     def __str__(self):
 #         return self.title
 
-class Season(models.Model):
-    season_name = models.CharField(max_length=40)
+
+
+class User(models.Model):
+    name = models.CharField(max_length=14)
+    password = models.CharField(max_length=20)
+    image = models.CharField(max_length=750)
 
     def __str__(self):
-        return self.season_name
-
-class Episode(models.Model):
-    title = models.CharField(max_length=255)
-    season = models.ForeignKey(Season, on_delete=models.CASCADE, related_name='episodes')
-    episode_number = models.IntegerField()
-    image = models.CharField(max_length=500)
-
-    def __str__(self):
-        return self.episode_number
+        return self.name
 
 class Review(models.Model):
     review = models.CharField(max_length=250)
-    episode = models.ForeignKey(Episode, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
 
     def __str__(self):
         return self.review
+
+class Comment(models.Model):
+    reply = models.CharField(max_length=250)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='comments')
+
+    def __str__(self):
+        return self.reply

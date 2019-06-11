@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Season, Episode, Review
+from .models import User, Review, Comment
 
 # Register your models here.
 
-admin.site.register([Season, Episode, Review])
+admin.site.register([User, Review, Comment])

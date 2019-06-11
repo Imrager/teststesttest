@@ -1,14 +1,14 @@
-import requests
-# from rest_framework import viewsets
+# import requests
+from rest_framework import viewsets
 # from django.shortcuts import render
-# from .serializers import ReviewSerializer, EpisodeSerializer, SeasonSerializer
-# from .models import Season, Episode, Review
+from .serializers import UserSerializer, ReviewSerializer, CommentSerializer
+from .models import User, Review, Comment
 
-url = 'http://api.tvmaze.com/shows/84/episodes'
-r = requests.get(url).json()
-for x in r:
-    show = x['name'], x['season'], x['airdate'], x['airtime'], x['image']['medium'], x['summary']
-    print(show)
+# url = 'http://api.tvmaze.com/shows/84/episodes'
+# r = requests.get(url).json()
+# for x in r:
+#     show = x['name'], x['season'], x['airdate'], x['airtime'], x['image']['medium'], x['summary']
+#     print(show)
     
 
 
@@ -20,9 +20,15 @@ for x in r:
 #     print(request.text)
 #     return render(request, '/')
 
-# class ArtistView(viewsets.ModelViewSet):
-#     queryset = Artist.objects.all()
-#     serializer_class = ArtistSerializer
+class ReviewView(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+class CommentView(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+class UserView(viewsets.ModelViewSet):
+    queryset =User.objects.all()
+    serializer_class = UserSerializer
 
 # class ArtistView(viewsets.ModelViewSet):
 #     queryset = Artist.objects.all()
