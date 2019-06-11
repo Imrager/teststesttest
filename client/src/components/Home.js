@@ -6,29 +6,29 @@ import logo from "../components/images/Family_Guy_Logo.png"
 
 class Home extends Component {
 
-    // state = {
-    //         artist: {},
-    //         songs: [],
-    // }
+    state = {
+            
 
-    // componentDidMount() {
-    //     const artistId = this.props.match.params.id;
-    //     this.fetchArtist(artistId)
-    // }
+    }
 
-    // fetchArtist = async (artistId) => {
-    //     try {
-    //         const artistResponse = await axios.get(`/api/v1/artists/${artistId}`)
-    //         this.setState({
-    //             artist: artistResponse.data,
-    //             songs: artistResponse.data.songs,
-    //         })
-    //     }
-    //     catch (error) {
-    //         console.log(error)
-    //         this.setState({error: error.message})
-    //     }
-    // }
+    componentDidMount() {
+        const artistId = this.props.match.params.id;
+        this.fetchArtist(artistId)
+    }
+
+    fetchArtist = async (artistId) => {
+        try {
+            const artistResponse = await axios.get(`/api/v1/artists/${artistId}`)
+            this.setState({
+                artist: artistResponse.data,
+                songs: artistResponse.data.songs,
+            })
+        }
+        catch (error) {
+            console.log(error)
+            this.setState({error: error.message})
+        }
+    }
 
     render() {
         return (
