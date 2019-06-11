@@ -35,16 +35,16 @@ class Results extends Component {
                     <aside>
                         <img src={logo} height='20%'/>
                         <img id='eflogo' src='https://fontmeme.com/permalink/190611/383739e555ee61e58f0add813ab63630.png' width='60%'/>
-                        <div>
-                            <input></input>
+                        <div id='asideSearch'>
+                            <input  value="Search Here"></input>
                             <input type='button' value='Find'></input>
                         </div>
                     </aside>
                     
                         <article>
-                           <div id='test'>1</div> 
-                           <div id='test'>1</div> 
-                           <div id='test'>1</div> 
+                           <div id='test'>Result1</div> 
+                           <div id='test'>Result2</div> 
+                           <div id='test'>Result3</div> 
                            
                         </article>
                 </body>

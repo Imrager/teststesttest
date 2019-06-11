@@ -22,6 +22,11 @@ aside{
 #eflogo{
     padding-left: 15%;
 }
+#asideSearch{
+    margin-top: 20%;
+    margin-left:15%;
+}
 #test{
     height:100px;
+    margin:10%;
 }
