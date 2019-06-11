@@ -1,0 +1,14 @@
+#homeBody{
+    width:100vw;
+    height: 100vh;
+}
+header{
+    height: 20%;
+    background-color: red;
+}
+#homeArticle{
+    height: 80%;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+}

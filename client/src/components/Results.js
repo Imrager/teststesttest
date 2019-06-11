@@ -5,25 +5,25 @@ import "../components/Results.css"
 import logo from "../components/images/Family_Guy_Logo.png"
 
 class Results extends Component {
-    // state = {
-    //     error: '',
-    //     artists: []
-    // }
+    state = {
+        error: '',
+        episodes: []
+    }
 
-    // componentDidMount(){
-    //     this.fetchArtists();
-    // }
+    componentDidMount(){
+        this.fetchEpisode();
+    }
 
-    // fetchArtists = async () => {
-    //     try {
-    //         const res = await axios.get('/api/v1/artists');
-    //         this.setState({artists: res.data});
-    //     }
-    //     catch (err) {
-    //         console.log(err)
-    //         this.setState({error: err.message})
-    //     }
-    // }
+    fetchEpisodes = async () => {
+        try {
+            const res = await axios.get('/api/v1/episodes');
+            this.setState({artists: res.data});
+        }
+        catch (err) {
+            console.log(err)
+            this.setState({error: err.message})
+        }
+    }
 
     render() {
         // if (this.state.error){
@@ -39,11 +39,17 @@ class Results extends Component {
                             <input  value="Search Here"></input>
                             <input type='button' value='Find'></input>
                         </div>
+                        <Link to="/">Home</Link>
                     </aside>
                     
                         <article>
                            <div id='test'>Result1</div> 
                            <div id='test'>Result2</div> 
+                           <div id='test'>Result3</div> 
+                           <div id='test'>Result3</div> 
+                           <div id='test'>Result3</div> 
+                           <div id='test'>Result3</div> 
+                           <div id='test'>Result3</div> 
                            <div id='test'>Result3</div> 
                            
                         </article>
