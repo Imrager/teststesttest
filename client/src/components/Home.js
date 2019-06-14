@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as  Link } from "react-router-dom";
 import "../components/Home.css"
 import logo from "../components/images/Family_Guy_Logo.png"
 
@@ -8,7 +8,8 @@ class Home extends Component {
 
     state = {
         show: [],
-        search: ''
+        search: '',
+        users: []
     }
 
     componentDidMount() {
@@ -26,11 +27,16 @@ class Home extends Component {
                 show: showResponse.data
             })
 
-            this.searchEpisode()
+            // this.searchEpisode()
         }
         catch (error) {
             console.log(error)
             this.setState({ error: error.message })
+        }
+    }
+    fetchUsers = async () => {
+        try {
+            const users
         }
     }
     searchEpisode(e) {
@@ -48,8 +54,10 @@ class Home extends Component {
         }
         console.log(results)
     }
-    handleChange = () => {
-        
+    handleChange = (e) => {
+        this.setState({ search : e.target.value });
+        // console.log(this.state.search)
+        console.log(this.state)
     }
 
     render() {
@@ -61,7 +69,7 @@ class Home extends Component {
                 </header>
                 <div id='homeArticle'>
                     <div>
-                        <Link to="/"><img src={logo} height='33%' /></Link>
+                        <Link to="/"><img src={logo} height='33%' alt='logo'/></Link>
                         <br />
                         <img id='eFLogo' src='https://fontmeme.com/permalink/190612/383739e555ee61e58f0add813ab63630.png' height='4%' />
                         <br />
@@ -71,7 +79,8 @@ class Home extends Component {
                                 id="search"
                                 type="text"
                                 onChange={this.handleChange}
-                                value={this.state.search}>
+                                value={this.state.search}
+                                >
                             </input>
                             <button type='submit'>Find</button>
                         </form>
