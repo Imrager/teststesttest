@@ -1,3 +1,15 @@
+#highsky{
+  float: right;
+  height:38px;
+  width: 24%;
+  background-color: white;
+}
+#highsky2{
+  margin-left:80%;
+  height:100%;
+  width: 20%;
+  background-color: white;
+}
 
 @keyframes App-logo-spin {
   from {

@@ -3,12 +3,19 @@
     height: 100vh;
 }
 header{
-    height: 20%;
+    height: 5%;
     background-color: red;
 }
 #homeArticle{
-    height: 80%;
+    height: 95%;
     background-color: blue;
     display: flex;
     justify-content: center;
+}
+#homeSearch{
+    margin-left: 23%;
+    margin-top: 10%;
+}
+#eFLogo{
+    margin-left: 18%;
 }

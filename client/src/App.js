@@ -7,6 +7,7 @@ import "./App.css";
 class App extends Component {
     render() {
         return (
+            
             <Router>
                 <Switch>
                     <Route exact path="/search" component={Results} />
