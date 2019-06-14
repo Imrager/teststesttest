@@ -9,16 +9,16 @@ class Home extends Component {
     state = {
         show: [],
         search: '',
-        users: []
+        result: []
     }
 
     componentDidMount() {
         // const artistId = this.props.match.params.id;
         // this.fetchArtist(artistId)
-        this.fetchEpisode()
+        this.fetchEpisodes()
     }
 
-    fetchEpisode = async () => {
+    fetchEpisodes = async () => {
         try {
             const showResponse = await axios.get(`/api/v1/episodes/`)
             this.setState({
@@ -34,12 +34,8 @@ class Home extends Component {
             this.setState({ error: error.message })
         }
     }
-    fetchUsers = async () => {
-        try {
-            const users
-        }
-    }
-    searchEpisode(e) {
+    
+    searchEpisode = (e) => {
         e.preventDefault()
         let guess = this.state.search
         let showData = this.state.show
@@ -53,19 +49,19 @@ class Home extends Component {
             }
         }
         console.log(results)
+        this.setState({ result: results})
     }
     handleChange = (e) => {
         this.setState({ search : e.target.value });
         // console.log(this.state.search)
-        console.log(this.state)
+        // console.log(this.state)
     }
 
     render() {
         return (
             <div id='homeBody'>
                 <header>
-                    <div id='highsky2'>
-                    </div>
+                    
                 </header>
                 <div id='homeArticle'>
                     <div>

@@ -42,8 +42,6 @@ class Results extends Component {
                 </aside>
 
                 <article>
-                    <div id='highsky'>
-                    </div>
                     <div id='test'>Result1</div>
                     <div id='test'>Result2</div>
                     <div id='test'>Result3</div>

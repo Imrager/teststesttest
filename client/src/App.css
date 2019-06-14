@@ -1,8 +1,10 @@
-#highsky{
-  float: right;
+#userLogin{
+  position:fixed;
+  margin-left: 76%;
   height:38px;
   width: 24%;
   background-color: white;
+  padding:2px;
 }
 #highsky2{
   margin-left:80%;
