@@ -5,15 +5,17 @@ import "../components/Results.css"
 import logo from "../components/images/Family_Guy_Logo.png"
 
 class Results extends Component {
+    
     // state = {
     //     error: '',
     //     episodes: []
     // }
 
-    // componentDidMount(){
-    //     this.fetchEpisode();
-    // }
-
+    componentDidMount(){
+        // this.fetchEpisode();
+        
+    }
+    
     // fetchEpisodes = async () => {
     //     try {
     //         const res = await axios.get('/api/v1/episodes');
@@ -24,7 +26,7 @@ class Results extends Component {
     //         this.setState({error: err.message})
     //     }
     // }
-
+    
     render() {
         // if (this.state.error){
         //     return <div>{this.state.error}</div>
@@ -42,14 +44,8 @@ class Results extends Component {
                 </aside>
 
                 <article>
-                    <div id='test'>Result1</div>
-                    <div id='test'>Result2</div>
-                    <div id='test'>Result3</div>
-                    <div id='test'>Result3</div>
-                    <div id='test'>Result3</div>
-                    <div id='test'>Result3</div>
-                    <div id='test'>Result3</div>
-                    <div id='test'>Result3</div>
+                    <div id='test'>Result: </div>
+                    
 
                 </article>
             </body>

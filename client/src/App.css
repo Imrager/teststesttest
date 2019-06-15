@@ -12,12 +12,54 @@
   width: 20%;
   background-color: white;
 }
+#loggedIn{
+  display:none;
+  padding: 5px;
+  justify-content: space-evenly;
+  
+}
+#navbar:hover{
 
-@keyframes App-logo-spin {
+  animation-name: navbar;
+  animation-duration: .5s;
+}
+#userImg{
+ width: 35px;
+ height:35px;
+ border-radius: 5px;
+}
+#homeBody{
+  width:100vw;
+  height: 100vh;
+}
+header{
+  height: 5%;
+  background-color: red;
+}
+#homeArticle{
+  height: 95%;
+  background-color: blue;
+  display: flex;
+  justify-content: center;
+}
+#homeSearch{
+  margin-left: 23%;
+  margin-top: 10%;
+}
+#eFLogo{
+  margin-left: 18%;
+}
+
+/* nav{
+  position:
+} */
+
+
+@keyframes navbar {
   from {
     transform: rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: rotate(-90deg);
   }
 }
