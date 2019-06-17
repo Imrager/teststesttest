@@ -30,6 +30,7 @@ class User(models.Model):
 class Review(models.Model):
     review = models.CharField(max_length=250)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
+    episode = models.CharField(max_length=10)
 
     def __str__(self):
         return self.review

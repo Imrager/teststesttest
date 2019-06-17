@@ -177,7 +177,7 @@ class App extends Component {
             />
         }
         let EpisodeComponent = ({ match }) => {
-            return <Episode searchEpisodeById={this.searchEpisodeById} id={match.params.id} show={this.state.show} />
+            return <Episode searchEpisodeById={this.searchEpisodeById} id={match.params.id} show={this.state.show} userLoggedIn={this.state.userLoggedIn}/>
         }
 
         return (
