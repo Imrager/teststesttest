@@ -1,0 +1,12 @@
+#episode{
+    width:100vw;
+    height: 100vh;
+    display:inline-flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: teal;
+}
+#epBio{
+    display:flex;
+    
+}

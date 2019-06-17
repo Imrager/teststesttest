@@ -17,7 +17,12 @@ class App extends Component {
         userLoggedIn: '',
         result: [],
         show: [],
-        redirectToResults: false
+        redirectToResults: false,
+        newUser: {
+            username: '',
+            password: '',
+            image: ''
+        }
     }
 }
     componentDidMount() {
@@ -88,7 +93,7 @@ class App extends Component {
         console.log(this.state.result)      
     }
     searchEpisodeById = (id) => {
-        this.state.show.find((episode)=>{
+       this.state.show.find((episode)=>{
             return episode.id === id
          })
     }
@@ -101,6 +106,12 @@ class App extends Component {
     handleUserNameChange = (e) => {
         this.setState({ username : e.target.value});
     }
+    handleNewUserChange = (event) => {
+        const cloneNewUser = {...this.state.newUser }
+        cloneNewUser[event.target.name] = event.target.value
+        this.setState({ newUser: cloneNewUser})
+    }
+    
     handlePasswordChange = (e) => {
         this.setState({ password : e.target.value});   
     }
@@ -109,26 +120,29 @@ class App extends Component {
         document.getElementById('password').value='';
       }
     
-    //   createUser = () => {
-    //     axios.post('/api/v1/users', {
-    //         name: this.state.newUser.name,
-    //         password: this.state.newUser.password,
-    //         image: this.state.newUser.image
-    //     })
-    //         .then(res => {
-    //             const userList = [...this.state.users]
-    //             userList.unshift(res.data)
-    //             this.setState({
-    //                 newUser: {
-    //                     name: '',
-    //                     password:'',
-    //                     image: ''
+      createUser = (e) => {
+          e.preventDefault()
+            axios.post('/api/v1/users/', {
+            username: this.state.newUser.name,
+            password: this.state.newUser.password,
+            image: this.state.newUser.image
+        })
+        
+            .then(res => {
+                // const userList = [...this.state.users]
+                // userList.unshift(res.data)
+                this.setState({
+                    newUser: {
+                        username: '',
+                        password:'',
+                        image: ''
 
-    //                 },
-    //                 user: userList
-    //             })
-    //         })
-    // }
+                    },
+                    // user: userList
+                })
+                console.log(this.State.newUser)
+            })
+    }
     render() {
         // if (this.state.redirectToResults) {
         //     return (< Redirect to="/search" />)
@@ -141,8 +155,8 @@ class App extends Component {
             searchEpisode= {this.searchEpisode}
             />
         }
-        let EpisodeComponent = () => {
-            return <Episode searchEpisodeById={this.searchEpisodeById}/>
+        let EpisodeComponent = ({match}) => {
+            return <Episode searchEpisodeById={this.searchEpisodeById} id={match.params.id} show={this.state.show}/>
         }
         
         return (
@@ -171,7 +185,7 @@ class App extends Component {
                         </input>
                     <button>Login</button>
                 </form>
-                <button>Create User</button>
+                
                 <form onSubmit={this.createUser}>
                     <label htmlFor='createUser'>Username</label>
                     <input
@@ -179,13 +193,26 @@ class App extends Component {
                         type='text'
                         name='name'
                         onChange={this.handleNewUserChange}
+                        placeholder={this.state.newUser.username}
                     />
+                    <label htmlFor='createPassword'>Password</label>
                     <input
-                        id='createUser'
+                        id='createPassword'
                         type='text'
                         password='password'
                         onChange={this.handleNewUserChange}
+                        placeholder={this.state.newUser.password}
+
                     />
+                    <label htmlFor='createImage'>Image</label>
+                    <input
+                        id='createImage'
+                        type='text'
+                        image='image'
+                        onChange={this.handleNewUserChange}
+                        placeholder={this.state.newUser.image}
+                    />
+                    <button>Create</button>
                 </form>
                 <div id='loggedIn'>
                     <img src={this.state.userLoggedIn.image} id='userImg'/>
