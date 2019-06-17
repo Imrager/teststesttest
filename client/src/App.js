@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
 import Results from "./components/Results";
+import Home from "./components/Home";
+import Episode from "./components/Episode";
 import "./App.css";
 import axios from 'axios';
 import logo from "./components/images/Family_Guy_Logo.png"
@@ -15,7 +17,6 @@ class App extends Component {
         userLoggedIn: '',
         result: [],
         show: [],
-        search: '',
         redirectToResults: false
     }
 }
@@ -69,27 +70,34 @@ class App extends Component {
         this.resetLoginForm()
 
     }
-    searchEpisode = (e) => {
-        e.preventDefault()
-        let guess = this.state.search
+    searchEpisode = (input) => {
+        
+        
         let showData = this.state.show
         
         for (let i = 0; i < showData.length; i++) {
-            if (guess == showData[i].season ||
-                guess == showData[i].number ||
-                guess === showData[i].name
+            if (input== showData[i].season ||
+                input == showData[i].number ||
+                input === showData[i].name
             ) {
                 this.state.result.push(showData[i])
             }
         }
         this.setState({redirectToResults : true})
+        // document.getElementById('loginForm').style.display='none'
         console.log(this.state.result)      
     }
-    handleChange = (e) => {
+    searchEpisodeById = (id) => {
+        this.state.show.find((episode)=>{
+            return episode.id === id
+         })
+    }
+    handleSearchChange = (e) => {
         this.setState({ search : e.target.value });
         // console.log(this.state.search)
         // console.log(this.state)
     }
+    // zX
     handleUserNameChange = (e) => {
         this.setState({ username : e.target.value});
     }
@@ -100,16 +108,49 @@ class App extends Component {
         document.getElementById('userName').value='';
         document.getElementById('password').value='';
       }
+    
+    //   createUser = () => {
+    //     axios.post('/api/v1/users', {
+    //         name: this.state.newUser.name,
+    //         password: this.state.newUser.password,
+    //         image: this.state.newUser.image
+    //     })
+    //         .then(res => {
+    //             const userList = [...this.state.users]
+    //             userList.unshift(res.data)
+    //             this.setState({
+    //                 newUser: {
+    //                     name: '',
+    //                     password:'',
+    //                     image: ''
+
+    //                 },
+    //                 user: userList
+    //             })
+    //         })
+    // }
     render() {
-        if (this.state.redirectToResults) {
-            return (< Redirect to="/search" />)
+        // if (this.state.redirectToResults) {
+        //     return (< Redirect to="/search" />)
+        // }
+        let ResultsComponent = () => {
+            return <Results results={this.state.result}/>
+        }
+        let HomeComponent = () => {
+            return <Home getAllEp={this.fetchEpisodes}
+            searchEpisode= {this.searchEpisode}
+            />
+        }
+        let EpisodeComponent = () => {
+            return <Episode searchEpisodeById={this.searchEpisodeById}/>
         }
         
-        
         return (
-            
-            
+
+        
             <Router>
+                 { (this.state.redirectToResults) ? (< Redirect to="/search" />): console.log(" redirect error")}
+    
                 <div id='userLogin'>
                 <form id='loginForm' onSubmit={this.userLogin}>
                     <label htmlFor="userName">Username</label>
@@ -130,6 +171,22 @@ class App extends Component {
                         </input>
                     <button>Login</button>
                 </form>
+                <button>Create User</button>
+                <form onSubmit={this.createUser}>
+                    <label htmlFor='createUser'>Username</label>
+                    <input
+                        id='createUser'
+                        type='text'
+                        name='name'
+                        onChange={this.handleNewUserChange}
+                    />
+                    <input
+                        id='createUser'
+                        type='text'
+                        password='password'
+                        onChange={this.handleNewUserChange}
+                    />
+                </form>
                 <div id='loggedIn'>
                     <img src={this.state.userLoggedIn.image} id='userImg'/>
                     
@@ -142,34 +199,13 @@ class App extends Component {
                     </nav>
                 </div>
                 </div>
-                <div id='homeBody'>
-                <header>
-                    
-                </header>
-                <div id='homeArticle'>
-                    <div>
-                        <Link to="/"><img src={logo} height='33%' alt='logo'/></Link>
-                        <br />
-                        <img id='eFLogo' src='https://fontmeme.com/permalink/190612/383739e555ee61e58f0add813ab63630.png' height='4%' />
-                        <br />
-                        <form id='homeSearch' onSubmit={this.searchEpisode}>
-                            <label htmlFor="search">Search</label>
-                            <input
-                                id="search"
-                                type="text"
-                                onChange={this.handleChange}
-                                value={this.state.search}
-                                >
-                            </input>
-                            <button type='submit'>Find</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+
+                
 
                 <Switch>
-                    <Route exact path="/search" component={Results} result={this.state.result}
-                    result={this.state.result}
+                    <Route exact path='/' render={HomeComponent} />
+                    <Route exact path="/search" render={ResultsComponent}/>
+                    <Route exact path={`/episode/:id`} render={EpisodeComponent}
                     />
                     {/* <Route path="/" component={Home} /> */}
                     

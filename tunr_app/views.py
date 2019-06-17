@@ -22,6 +22,16 @@ class ShowView(viewsets.ViewSet):
         r = requests.get(url).json()
         # print(episodes)
         return Response(r)
+
+
+# class EpisodeView(viewsets.ViewSet):
+#     def list(self, request):
+
+#         url = f'/shows/84/episodebynumber?season={season}season&number={episode}number'
+#         r = requests.get(url).json()
+#         # print(episodes)
+#         return Response(r)
+
 # class ArtistView(viewsets.ModelViewSet):
 #     queryset = Artist.objects.all()
 #     serializer_class = ArtistSerializer

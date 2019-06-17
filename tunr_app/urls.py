@@ -8,6 +8,7 @@ router.register('users', views.UserView)
 router.register('reviews', views.ReviewView)
 router.register('comments', views.CommentView)
 router.register('episodes', views.ShowView, base_name='episodes')
+# router.register('episode', views.ShowView, base_name='episode')
 
 
 urlpatterns = [

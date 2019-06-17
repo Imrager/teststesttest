@@ -44,7 +44,18 @@ class Results extends Component {
                 </aside>
 
                 <article>
-                    <div id='test'>Result: </div>
+                {this.props.results.map((result) => {
+                                return (
+                                    <div id='test'>
+                                     <Link to={`/episode/${result.id}`}><h1>{result.name}</h1></Link>
+                                     <img src={result.image.medium} height='50px'/>
+                                     <h3>Season: {result.season}, Episode: {result.number}</h3>
+                                     {result.summary}
+                                    </div>
+                                )
+                            })
+                            }
+                            {console.log(this.props.results)}
                     
 
                 </article>
