@@ -22,7 +22,8 @@ class App extends Component {
                 newUsername: '',
                 newPassword: '',
                 image: ''
-            }
+            },
+            redirectToHome: false
         }
     }
     componentDidMount() {
@@ -150,8 +151,18 @@ class App extends Component {
                     },
                     // user: userList
                 })
+
                 console.log(this.state.newUser)
+                window.location.reload();
             })
+    }
+
+
+    deleteUser = () => {
+        axios.delete(`/api/v1/users/${this.state.userLoggedIn.id}`).then(res => {
+            this.setState({ redirectToHome: true })
+        })
+        window.location.reload();
     }
     render() {
         // if (this.state.redirectToResults) {
@@ -174,6 +185,7 @@ class App extends Component {
 
             <Router>
                 {(this.state.redirectToResults) ? (< Redirect to="/search" />) : console.log(" redirect error")}
+                {(this.state.redirectToHome) ? (< Redirect to="/" />) : console.log(" redirect error")}
 
                 <div id='userLogin'>
                     <form id='loginForm' onSubmit={this.userLogin}>
@@ -238,6 +250,8 @@ class App extends Component {
                         <h4>User:{this.state.userLoggedIn.name}</h4>
 
                         <img id='navbar' src='https://cdn2.iconfinder.com/data/icons/clean-minimal-set/16/open-menu-01-512.png' height='35px' />
+                        
+                        <button onClick={this.deleteUser}>Delete</button>
                         <nav>
 
                         </nav>
