@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import "./Episode.css";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from 'axios';
 
 class Episode extends Component {
@@ -12,13 +12,20 @@ class Episode extends Component {
             review: '',
             episode: '',
             user: ''
-        }
+        },
+        comments: [],
+        newComment: {
+            reply:'',
+            reviewId: ''
+        },
+        redirectToHome: false
     }
 
     componentDidMount() {
 
         this.getEpisodeById()
         this.getReviews()
+        this.getComments()
     }
 
     // searchEpisodeById = ()=> {
@@ -29,6 +36,12 @@ class Episode extends Component {
         axios.get('/api/v1/reviews/')
             .then(res => {
                 this.setState({ reviews: res.data })
+            })
+    }
+    getComments = () => {
+        axios.get('/api/v1/comments/')
+            .then(res => {
+                this.setState({ comments: res.data })
             })
     }
     getEpisodeById = () => {
@@ -42,7 +55,7 @@ class Episode extends Component {
         axios.post('/api/v1/reviews/', {
             review: this.state.newReview.review,
             episode: this.props.id,
-            user: this.props.userLoggedIn.username
+            user: 1
         })
 
             .then(res => {
@@ -59,15 +72,49 @@ class Episode extends Component {
                 window.location.reload();
             })
     }
+    createComment = (e, reviewId) => {
+        e.preventDefault()
+        axios.post('/api/v1/comment/', {
+            reply: this.state.newComment.reply,
+            review: reviewId
+        })
+
+            .then(res => {
+                this.setState({
+                    newComment: {
+                        reply: '',
+                        reviewId: ''
+
+                    },
+                })
+
+                console.log(this.state.newReview)
+                window.location.reload();
+            })
+    }
+    deleteReview = (id) => {
+        axios.delete(`/api/v1/reviews/${id}`)
+            .then(res => {
+                this.setState({ redirectToHome: true })
+            })
+        window.location.reload();
+    }
     handleReviewChange = (event) => {
         const cloneNewReview = { ...this.state.newReview }
         cloneNewReview[event.target.name] = event.target.value
         this.setState({ newReview: cloneNewReview })
     }
+    handleCommentChange = (event) => {
+        const cloneNewComment = { ...this.state.newComment }
+        cloneNewComment[event.target.name] = event.target.value
+        this.setState({ newComment: cloneNewComment})
+    }
     render() {
 
         return (
             <div id='episode'>
+               
+                {(this.state.redirectToHome) ? (< Redirect to="/" />) : console.log(" redirect error")}
                 <Link to="/">Home</Link>
                 <h1>{this.state.episode.name}</h1>
                 <div id='epBio'>
@@ -88,6 +135,24 @@ class Episode extends Component {
                         return (
                             <div id='review'>
                                 <h1>{review.review}</h1>
+                                <button onClick={() => (this.deleteReview(review.id))}>Delete Review</button>
+                                {review.comments.map((comment)=>{
+                                    return (
+                                        <div>
+                                        <h3>{comment.reply}</h3>
+                                        <button onClick={() => (this.deleteReview(comment.id))}>Delete Comment</button>
+                                        </div>
+                                        )
+                                })}
+                                <form onSubmit={() => (this.createComment(review.id))}>
+                                    <textarea rows="4" cols="25"
+                                        id='reviewField'
+                                        type='text'
+                                        name='reply'
+                                        onChange={this.handleCommentChange}
+                                        placeholder={this.state.newReview.review} />
+                                    <button type='submit'>Submit</button>
+                                </form>
                             </div>
                         )
                     })}

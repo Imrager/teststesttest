@@ -5,6 +5,7 @@
     align-items: center;
     flex-direction: column;
     background-color: teal;
+    overflow: auto;
 }
 #epBio{
     display:flex;
