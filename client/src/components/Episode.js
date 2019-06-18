@@ -13,6 +13,11 @@ class Episode extends Component {
             episode: '',
             user: ''
         },
+        updateReview:{
+            updatedReview: '',
+            updateEpisode: '',
+            updateUser: ''
+        },
         comments: [],
         newComment: {
             reply:'',
@@ -72,13 +77,29 @@ class Episode extends Component {
                 window.location.reload();
             })
     }
-    createComment = (e, reviewId) => {
+    updateReview = (e) => {
         e.preventDefault()
-        axios.post('/api/v1/comment/', {
-            reply: this.state.newComment.reply,
-            review: reviewId
+        axios.put('/api/v1/reviews/2/', {
+            review: this.state.updateReview.updatedReview,
+            episode: this.props.id,
+            user: 1
         })
+            .then(res => {
+                this.setState({ updateReview:{
+                    updatedReview: '',
+                    updateEpisode: '',
+                    updateUser: ''
+                } })
+            })
+            window.location.reload();
 
+    }
+    createComment = (e) => {
+        e.preventDefault()
+        axios.post('/api/v1/comments/', {
+            reply: this.state.newComment.reply,
+            review: 2
+        })
             .then(res => {
                 this.setState({
                     newComment: {
@@ -88,21 +109,36 @@ class Episode extends Component {
                     },
                 })
 
-                console.log(this.state.newReview)
+                console.log(this.state.newComment)
                 window.location.reload();
             })
     }
+    stopFormQuery = (e) =>  {
+        e.preventDefault()
+    }
     deleteReview = (id) => {
         axios.delete(`/api/v1/reviews/${id}`)
-            .then(res => {
-                this.setState({ redirectToHome: true })
-            })
+            // .then(res => {
+            //     this.setState({ redirectToHome: true })
+            // })
+        window.location.reload();
+    }
+    deleteComment = (id) => {
+        axios.delete(`/api/v1/comments/${id}`)
+            // .then(res => {
+            //     this.setState({ redirectToHome: true })
+            // })
         window.location.reload();
     }
     handleReviewChange = (event) => {
         const cloneNewReview = { ...this.state.newReview }
         cloneNewReview[event.target.name] = event.target.value
         this.setState({ newReview: cloneNewReview })
+    }
+    handleUpdateChange = (event) => {
+        const cloneNewReview = { ...this.state.updateReview }
+        cloneNewReview[event.target.name] = event.target.value
+        this.setState({ updateReview: cloneNewReview })
     }
     handleCommentChange = (event) => {
         const cloneNewComment = { ...this.state.newComment }
@@ -135,22 +171,33 @@ class Episode extends Component {
                         return (
                             <div id='review'>
                                 <h1>{review.review}</h1>
+
+                                <form onSubmit={this.updateReview}>
+                                    <input
+                                    id='reviewField'
+                                    type='text'
+                                    name='updatedReview'
+                                    onChange={this.handleUpdateChange}
+                                    placeholder={this.state.updateReview.updatedReview}
+                                    />
+                                    <button type='submit'>Update Review</button>
+                                </form>
                                 <button onClick={() => (this.deleteReview(review.id))}>Delete Review</button>
                                 {review.comments.map((comment)=>{
                                     return (
                                         <div>
                                         <h3>{comment.reply}</h3>
-                                        <button onClick={() => (this.deleteReview(comment.id))}>Delete Comment</button>
+                                        <button onClick={() => (this.deleteComment(comment.id))}>Delete Comment</button>
                                         </div>
                                         )
                                 })}
-                                <form onSubmit={() => (this.createComment(review.id))}>
+                                <form onSubmit={this.createComment}>
                                     <textarea rows="4" cols="25"
-                                        id='reviewField'
+                                        id='replyField'
                                         type='text'
                                         name='reply'
                                         onChange={this.handleCommentChange}
-                                        placeholder={this.state.newReview.review} />
+                                        placeholder={this.state.newComment.reply} />
                                     <button type='submit'>Submit</button>
                                 </form>
                             </div>
@@ -165,7 +212,7 @@ class Episode extends Component {
                             type='text'
                             name='review'
                             onChange={this.handleReviewChange}
-                            placeholder={this.state.newReview.review} />
+                            placeholder={this.state.newReview.reply} />
                         <button type='submit'>Submit</button>
                     </form>
                 </div>
