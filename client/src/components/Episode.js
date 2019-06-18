@@ -124,7 +124,7 @@ class Episode extends Component {
         window.location.reload();
     }
     deleteComment = (id) => {
-        axios.delete(`/api/v1/comments/${id}`)
+        axios.delete(`/api/v1/comments/${id}/`)
             // .then(res => {
             //     this.setState({ redirectToHome: true })
             // })
