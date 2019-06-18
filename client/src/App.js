@@ -156,7 +156,7 @@ class App extends Component {
                 window.location.reload();
             })
     }
-
+    
 
     deleteUser = () => {
         axios.delete(`/api/v1/users/${this.state.userLoggedIn.id}`).then(res => {
@@ -207,9 +207,6 @@ class App extends Component {
                         </input>
                         <button>Login</button>
                     </form>
-
-
-
 
                     <form onSubmit={this.createUser}>
                         <label htmlFor='createUser'>Username</label>
